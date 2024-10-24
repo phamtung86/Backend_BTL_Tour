@@ -44,4 +44,3 @@ build/
 !src/main/resources/application.properties
 
 ### Ignore all pom.xml files ###
-pom.xml
