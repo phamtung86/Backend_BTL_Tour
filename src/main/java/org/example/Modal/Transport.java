@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "transport")
-public class Tranport {
+public class Transport {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,7 @@ public class Tranport {
     @Column(name = "name")
     private String name;
 
-    public Tranport() {
+    public Transport() {
     }
 
     public int getId() {
