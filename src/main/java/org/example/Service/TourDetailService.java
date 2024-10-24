@@ -1,5 +1,6 @@
 package org.example.Service;
 
+import org.example.Modal.Tour;
 import org.example.Modal.TourDetail;
 import org.example.Reponsitory.TourDetailReponsitory;
 import org.example.Reponsitory.TourDetailReponsitory; // Đổi tên
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TourDetailService {
@@ -39,5 +41,26 @@ public class TourDetailService {
             return true;
         }
         return false; // Có thể thêm thông điệp ở đây nếu cần
+    }
+    // update tour_detail
+    public TourDetail updateTour(int id, TourDetail tourdetailt_update ){
+        Optional<TourDetail> optionalTourDetail = tourDetailRepository.findById(id);
+        if(optionalTourDetail.isPresent()){
+            TourDetail existingTourDetail = optionalTourDetail.get();
+            existingTourDetail.setFile_name(tourdetailt_update.getFile_name());
+            existingTourDetail.setUrl(tourdetailt_update.getUrl());
+            existingTourDetail.setSightseeing(tourdetailt_update.getSightseeing());
+            existingTourDetail.setCuisine(tourdetailt_update.getCuisine());
+            existingTourDetail.setSuitable_people(tourdetailt_update.getSuitable_people());
+            existingTourDetail.setTime_suitable(tourdetailt_update.getTime_suitable());
+            existingTourDetail.setTransport(tourdetailt_update.getTransport());
+            existingTourDetail.setSale_description(tourdetailt_update.getSale_description());
+            existingTourDetail.setTour_id(tourdetailt_update.getTour_id());
+            return tourDetailRepository.save(existingTourDetail);
+
+        } else{
+            System.out.println("TourDetail not found with Id" + id);
+            return null;
+        }
     }
 }

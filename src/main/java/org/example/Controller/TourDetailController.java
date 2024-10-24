@@ -5,6 +5,7 @@ import org.example.Service.TourDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +16,13 @@ public class TourDetailController {
     @Autowired
     private TourDetailService tourDetailService;
 
-    @GetMapping("/ListAllTourDetail")
+    @GetMapping("/TourDetails")
     public ResponseEntity<List<TourDetail>> listTourDetail() {
         List<TourDetail> tourDetails = tourDetailService.getAllTourDetail();
         return new ResponseEntity<>(tourDetails, HttpStatus.OK);
     }
 
-    @GetMapping("/TourDetailByTourID/{tourId}")
+    @GetMapping("/TourDetails/{tourId}")
     public ResponseEntity<TourDetail> tourDetailById(@PathVariable String tourId) {
         TourDetail tourDetail = tourDetailService.findTourDetailByTourId(tourId);
         if (tourDetail == null) {
@@ -30,9 +31,26 @@ public class TourDetailController {
         return new ResponseEntity<>(tourDetail, HttpStatus.OK);
     }
 
-    @PostMapping("/addNewTourDetail") // Thêm dấu /
+    @PostMapping("/TourDetails") // Thêm dấu /
     public ResponseEntity<TourDetail> addNewTourDetail(@RequestBody TourDetail tourDetail) {
         TourDetail newTourDetail = tourDetailService.createNewTourDetail(tourDetail);
         return new ResponseEntity<>(newTourDetail, HttpStatus.CREATED);
     }
+    @DeleteMapping("/TourDetails/{id}")
+    public ResponseEntity<Void> deleteTourDetail(@PathVariable("id") int id){
+        boolean isDeleted = tourDetailService.deleteTourDetail(id);
+        if(isDeleted){
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.notFound().build();
+
+        }
+
+    }
+    @PostMapping("/updateTourDetail/{id}")
+    public ResponseEntity<TourDetail> updateTourDetail(@PathVariable("id") int id, TourDetail tourDetailupdate){
+        TourDetail updateTourDetail = tourDetailService.updateTour(id,tourDetailupdate);
+        return ResponseEntity.ok(updateTourDetail);
+    }
+
 }
