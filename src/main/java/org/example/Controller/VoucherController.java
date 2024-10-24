@@ -49,4 +49,14 @@ public class VoucherController {
         }
         return false;
     }
+
+    @DeleteMapping("DeleteVoucher/{id}")
+    public boolean deleteVoucher(@PathVariable int id) {
+        Optional<Voucher> isExists = voucherService.findVoucherById(id);
+        if (isExists.isPresent()) {
+            voucherService.deleteVoucher(id);
+            return true;
+        }
+        return false;
+    }
 }

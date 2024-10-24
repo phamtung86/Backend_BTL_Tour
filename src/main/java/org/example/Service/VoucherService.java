@@ -1,6 +1,7 @@
 package org.example.Service;
 
 import org.example.Modal.Voucher;
+import org.example.Reponsitory.TourReponsitory;
 import org.example.Reponsitory.VoucherReponsitory;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class VoucherService {
     @Autowired
     private VoucherReponsitory voucherReponsitory;
+    @Autowired
+    private TourReponsitory tourReponsitory;
 
     // get all voucher
     public List<Voucher> listAllVoucher (){
@@ -30,7 +33,6 @@ public class VoucherService {
     }
 
     // update Voucher by ID
-
     public boolean updateVoucher(int id, Voucher voucher) {
         Optional<Voucher> optionalVoucher = voucherReponsitory.findById(id);
         if (optionalVoucher.isPresent()) {
@@ -39,6 +41,15 @@ public class VoucherService {
             updatedVoucher.setValue(voucher.getValue());
             updatedVoucher.setType(voucher.getType());
             voucherReponsitory.save(updatedVoucher) ;
+            return true;
+        }
+        return false;
+    }
+
+    // delete voucher by id
+    public boolean deleteVoucher(int id) {
+        if(voucherReponsitory.existsById(id)){
+            voucherReponsitory.deleteById(id);
             return true;
         }
         return false;
