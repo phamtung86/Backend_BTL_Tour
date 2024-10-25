@@ -3,24 +3,22 @@ package org.example.Controller;
 import org.example.Modal.Voucher;
 import org.example.Service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/Voucher")
+@RequestMapping("/api/v1")
 public class VoucherController {
     @Autowired
     private VoucherService voucherService;
-    @GetMapping("/ListAllVoucher")
+    @GetMapping("/vouchers")
     public List<Voucher> getAllVoucher() {
         return voucherService.listAllVoucher();
     }
 
-    @GetMapping("/VoucherById/{id}")
+    @GetMapping("/vouchers/{id}")
     public Voucher getVoucherById(@PathVariable int id) {
         Optional<Voucher> isExists = voucherService.findVoucherById(id);
         if (isExists.isPresent()) {
@@ -29,7 +27,7 @@ public class VoucherController {
         return null;
     }
 
-    @PostMapping("/AddNewVoucher")
+    @PostMapping("/vouchers")
     public boolean addNewVoucher(@RequestBody Voucher voucher) {
         Voucher newVoucher = voucherService.createVoucher(voucher);
         if (newVoucher != null) {
@@ -40,7 +38,7 @@ public class VoucherController {
 
     // update voucher
 
-    @PutMapping("/UpdateVoucher/{id}")
+    @PutMapping("/vouchers/{id}")
     public boolean updateVoucher(@PathVariable int id, @RequestBody Voucher voucher) {
         Optional<Voucher> isExists = voucherService.findVoucherById(id);
         if (isExists.isPresent()) {
@@ -50,7 +48,7 @@ public class VoucherController {
         return false;
     }
 
-    @DeleteMapping("DeleteVoucher/{id}")
+    @DeleteMapping("vouchers/{id}")
     public boolean deleteVoucher(@PathVariable int id) {
         Optional<Voucher> isExists = voucherService.findVoucherById(id);
         if (isExists.isPresent()) {

@@ -1,10 +1,8 @@
 package org.example.Controller;
 
-import org.example.DTO.UserDTO;
 import org.example.Modal.Users;
 import org.example.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,10 +17,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/ListAllUser")
-    @ResponseBody
+    @GetMapping("/users")
     public ArrayList<Users> getUsers() {
         return userService.getAllUSer();
     }
 
+    @PostMapping("/users")
+    public boolean addNewUser(@RequestBody Users user) {
+        return userService.createNewUser(user);
+    }
+    @PutMapping("/users/{userID}")
+    public boolean updateUser(@RequestBody Users user, @PathVariable int userID) {
+        return userService.updateUser(userID, user);
+    }
 }

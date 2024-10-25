@@ -1,9 +1,7 @@
 package org.example.Service;
 
 import org.example.Modal.Voucher;
-import org.example.Reponsitory.TourReponsitory;
 import org.example.Reponsitory.VoucherReponsitory;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +12,6 @@ import java.util.Optional;
 public class VoucherService {
     @Autowired
     private VoucherReponsitory voucherReponsitory;
-    @Autowired
-    private TourReponsitory tourReponsitory;
 
     // get all voucher
     public List<Voucher> listAllVoucher (){

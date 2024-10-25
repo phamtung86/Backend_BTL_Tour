@@ -17,7 +17,7 @@ public class OpenAPIConfig {
         return new OpenAPI().info(new Info().title("API Document Test")
                         .version("1.0").description("API Document")
                         .license(new License().name("API License").url("https://github.com/M/Example/API-Document")))
-                .servers(List.of(new Server().url("http://localhost:8085/")));
+                .servers(List.of(new Server().url("http://localhost:8080/")));
     }
 
     @Bean

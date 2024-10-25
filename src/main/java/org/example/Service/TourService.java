@@ -3,11 +3,9 @@ package org.example.Service;
 import org.example.Modal.Tour;
 import org.example.Reponsitory.TourReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +26,9 @@ public class TourService {
     public boolean deleteTourById(String id) {
         if (tourReponsitory.existsById(id)) {
             tourReponsitory.deleteById(id);
-            return true; // Trả về true nếu xóa thành công
+            return true;
         }
-        return false; // Trả về false nếu không tìm thấy tour
+        return false;
     }
 
     // update tour by id
@@ -53,5 +51,17 @@ public class TourService {
                 return null;
             }
     }
+
+    // search tour by name
+    public List<Tour> getTourByName(String Name) {
+        List<Tour> listTourByName = new ArrayList<>();
+        for (Tour tour : tourReponsitory.findAll()) {
+            if (tour.getName().toLowerCase().contains(Name.toLowerCase())) {
+                listTourByName.add(tour);
+            }
+        }
+        return listTourByName;
+    }
+
 
 }
