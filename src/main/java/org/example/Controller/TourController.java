@@ -11,27 +11,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Tour")
+@RequestMapping("/api/v1")
 public class TourController {
 
     @Autowired
     private TourService tourService;
 
     // get all tour
-    @GetMapping("/ListAllTours")
+    @GetMapping("/tours")
     public List<Tour> listAllTours() {
         return tourService.getAllTours();
     }
 
+    // get tour by name
+    @GetMapping("/tours/{tourName}")
+    public List<Tour> getTourByName(@PathVariable String tourName) {
+        return tourService.getTourByName(tourName);
+    }
+
     // add tour
-    @PostMapping("/addNewTour")
+    @PostMapping("/tours")
     public Tour addNewTour(@RequestBody Tour tour) {
         Tour newTour = tourService.createNewTour(tour);
         return new ResponseEntity<>(newTour, HttpStatus.CREATED).getBody();
     }
 
     // delete tour by id
-    @DeleteMapping("/deleteTour/{id}")
+    @DeleteMapping("/tours/{id}")
     public ResponseEntity<Void> deleteTour(@PathVariable("id") String id) {
         boolean isDeleted = tourService.deleteTourById(id);
         if (isDeleted) {
@@ -41,7 +47,7 @@ public class TourController {
         }
     }
     // update tour by id
-    @PutMapping("/updateTour/{id}")
+    @PutMapping("/tours/{id}")
     public ResponseEntity<Tour> updateTour(@PathVariable("id") String id, @RequestBody Tour tourUpdate) {
         Tour updatedTour = tourService.updateTour(id, tourUpdate);
         return ResponseEntity.ok(updatedTour);

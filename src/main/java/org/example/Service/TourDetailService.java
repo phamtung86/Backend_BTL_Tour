@@ -2,7 +2,6 @@ package org.example.Service;
 
 import org.example.Modal.TourDetail;
 import org.example.Reponsitory.TourDetailReponsitory;
-import org.example.Reponsitory.TourDetailReponsitory; // Đổi tên
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
